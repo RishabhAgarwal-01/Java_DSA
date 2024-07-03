@@ -220,7 +220,7 @@ Hence, the returned linked list represents the number 189 * 2 = 378.*/
     Node temp;
     public boolean traverseLast(Node head){
 
-        if(head == null)
+        if(head == null) //it handles both the case for last node traversal and checking for the empty list condition
             return true;
 
         boolean isPal = traverseLast(head.next);
