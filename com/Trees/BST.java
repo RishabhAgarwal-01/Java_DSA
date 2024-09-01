@@ -133,8 +133,27 @@ public class BST {
         }
         return ans;
     }
-    //iterative approach for the preorder traversal Node-->left--right but since here we will use the stack ds then we have to store
-    //the right first so that left is on the top and extracted before right as Stack is LIFO ds
 
+    //level order traversal but in reverse order
+    public List<List<Integer>> levelOrderReverse(Node root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        if(root == null) return ans;
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int levelSize = queue.size();
+            List<Integer> currentLevel = new ArrayList<>();
+            for(int i=0;i<levelSize;i++){
+                Node currentNode = queue.poll();
+                currentLevel.add(currentNode.value);
+                if(currentNode.left != null)
+                    queue.add(currentNode.left);
+                if(currentNode.right != null)
+                    queue.add(currentNode.right);
+            }
+            ans.add(0,currentLevel);
+        }
+        return ans;
+    }
 
 }
