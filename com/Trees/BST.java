@@ -156,4 +156,45 @@ public class BST {
         return ans;
     }
 
+    //leetcode 450 delete a node in bst
+    public Node deleteNode(Node root, int key) {
+
+        if(root == null) return null;
+        if(root.value == key) return helper(root);        Node temp = root;
+        while(root != null){
+            //grandparent node
+            if(root.value > key){
+                //checking on the parent node which either have the key or not
+                if(root.left != null && root.left.value == key) {
+                    root.left = helper(root.left);
+                    break;
+                }else {
+                    root = root.left;
+                }
+            }else{
+                if(root.right != null && root.right.value == key) {
+                    root.right = helper(root.right);
+                    break;
+                }else {
+                    root = root.right;
+                }
+            }
+        }
+        return temp;
+    }
+
+    private Node helper(Node node){
+        //here it is checking for grandchildren node or grandchildren subtree
+        if(node.left == null) return node.right;
+        if(node.right == null) return node.left;
+        //if both exists
+        Node successor = node.right;
+        Node rightMostInLeftSubtree = findRightMost(node.left);
+        rightMostInLeftSubtree.right= successor;
+        return node.left;
+    }
+    private Node findRightMost(Node node){
+       if(node.right == null) return node;
+       return findRightMost(node.right);
+    }
 }
